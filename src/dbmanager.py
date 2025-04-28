@@ -32,7 +32,7 @@ class DBManager:
                 SELECT e.name, v.name, v. salary, v.alternate_url
                 FROM employers e
                 JOIN vacancies v
-                ON e.id = v.employer_id                
+                ON e.id = v.employer_id
                 """
                 )
                 result = self.cur.fetchall()
@@ -62,7 +62,7 @@ class DBManager:
             with self.conn.cursor() as self.cur:
                 self.cur.execute(
                     """
-                    SELECT * 
+                    SELECT *
                     FROM vacancies
                     WHERE salary > (SELECT round(avg(salary), 2) as avg_salary FROM vacancies WHERE salary <> 0)
                     """

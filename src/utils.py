@@ -3,7 +3,6 @@ import psycopg2
 from src.dbmanager import DBManager
 from src.hh_api import HeadHunter
 
-
 hh_obj = HeadHunter()
 
 
@@ -105,7 +104,9 @@ def fill_in_vacancies(vacancies_data: list, database_name: str, params: dict) ->
             for vacancy_data in vacancies_data:
                 if vacancy_data["id"] not in vacancies_ids:
                     cur.execute(
-                        """INSERT INTO vacancies (id, name, alternate_url, salary, employer_id) VALUES (%s, %s, %s, %s, %s)""",
+                        """
+                    INSERT INTO vacancies (id, name, alternate_url, salary, employer_id)
+                    VALUES (%s, %s, %s, %s, %s)""",
                         (
                             f"{vacancy_data["id"]}",
                             f"{vacancy_data["name"]}",
@@ -127,15 +128,17 @@ def get_keyword() -> str:
     return user_word
 
 
-def user_interaction(database_name: str, params: dict):
+def user_interaction(database_name: str, params: dict) -> None:
     """Получаем от пользователя данные для вывода необходимой ему информации"""
     hhdb = DBManager()
-    user_input = input("Укажите пункт, информацию по которому Вам бы хотелось получить:\n"
-                       "1. Список всех компаний и количество вакансий у каждой компании.\n"
-                       "2. Список всех вакансий с указанием названия компании, названия вакансии, зарплаты и ссылки на вакансию.\n"
-                       "3. Среднюю зарплату по вакансиям.\n"
-                       "4. Список всех вакансий, у которых зарплата выше средней по всем вакансиям.\n"
-                       "5. Список всех вакансий, в названии которых содержатся переданные в метод слова.\n")
+    user_input = input(
+        "Укажите пункт, информацию по которому Вам бы хотелось получить:\n"
+        "1. Список всех компаний и количество вакансий у каждой компании.\n"
+        "2. Список всех вакансий с указанием названия компании, названия вакансии, зарплаты и ссылки на вакансию.\n"
+        "3. Среднюю зарплату по вакансиям.\n"
+        "4. Список всех вакансий, у которых зарплата выше средней по всем вакансиям.\n"
+        "5. Список всех вакансий, в названии которых содержатся переданные в метод слова.\n"
+    )
     if user_input == "1":
         hhdb.get_companies_and_vacancies_count(database_name, params)
     elif user_input == "2":

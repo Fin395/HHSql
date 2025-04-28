@@ -9,6 +9,7 @@ class HeadHunter(BaseApi):
     __url: str
     __params: dict
     __employers: list
+    __vacancies: list
 
     def __init__(self) -> None:
         """Метод инициализации экземпляра класса"""
