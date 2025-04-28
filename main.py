@@ -6,6 +6,7 @@ from src.utils import create_database, fill_in_employers, create_tables, get_emp
 def main() -> None:
     """Основная функция, объединяющая функционал"""
     params = config()
+
     employers_to_fill_in_tables = get_employers_from_hh()
     vacancies_to_fill_in_tables = get_vacancies_from_hh()
 
